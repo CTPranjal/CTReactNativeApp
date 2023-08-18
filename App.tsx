@@ -139,7 +139,7 @@ function App(): JSX.Element {
         }}
       >
         <Button
-          title="Web Inbox"
+          title="App Inbox"
           onPress={() => {CleverTap.showInbox({
           'tabs': ['Offers', 'Promotions'],
           'navBarTitle': 'My App Inbox',
