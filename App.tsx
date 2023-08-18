@@ -9,6 +9,12 @@ import React from 'react';
 import type {PropsWithChildren} from 'react';
 const CleverTap = require('clevertap-react-native');
 CleverTap.createNotificationChannel("P01", "Clever Tap React Native Testing", "CT React Native Testing", 5, true) // The notification channel importance can have any value from 1 to 5. A higher value means a more interruptive notification.
+CleverTap.initializeInbox();
+CleverTap.setDebugLevel(3);
+CleverTap.addListener(CleverTap.CleverTapDisplayUnitsLoaded, (data) => {
+  console.log("Hey this is native testing", data);
+});
+
 
 import {
     SafeAreaView,
@@ -19,7 +25,7 @@ import {
     Alert,
     Text,
     useColorScheme,
-    View,
+    View
 } from 'react-native';
 
 import {
@@ -86,24 +92,69 @@ function App(): JSX.Element {
         barStyle={isDarkMode ? 'light-content' : 'dark-content'}
         backgroundColor={backgroundStyle.backgroundColor}
       />
-      <Button
-        title="On User Login"
-        onPress={() => {CleverTap.onUserLogin({'Name': 'React-Test', 'Identity': '2001', 'Email': 'sk@gmail.com', 'Phone': '+14155551234', 'Gender': 'M', 'custom1': 15});}}
-      />
-      <Button
-        title="Push Profile"
-        onPress={() => {CleverTap.profileSet(props);}}
-      />
-      <Button
-        title="Push Event"
-        onPress={() => {CleverTap.recordEvent('Product Viewed', {'Product Name': 'Dairy Milk', 'Category': 'Chocolate', 'Amount': 20.00 });}}
-      />
-      <Button
-          title="Charge Event"
-          onPress={() => {CleverTap.recordChargedEvent(chargeDetails, items);}}
-      />
 
-
+      <View
+        style = {{
+          padding : 20
+        }}
+      >
+        <Button
+          title="On User Login"
+          onPress={() => {CleverTap.onUserLogin({'Name': 'React-Test', 'Identity': '2001', 'Email': 'sk@gmail.com', 'Phone': '+14155551234', 'Gender': 'M', 'custom1': 15});}}
+        />
+      </View>
+      <View
+        style = {{
+          padding : 20
+        }}
+      >
+        <Button
+          title="Push Profile"
+          onPress={() => {CleverTap.profileSet(props);}}
+        />
+      </View>
+      <View
+        style = {{
+          padding : 20
+        }}
+      >
+        <Button
+          title="Push Event"
+          onPress={() => {CleverTap.recordEvent('Product Viewed', {'Product Name': 'Dairy Milk', 'Category': 'Chocolate', 'Amount': 20.00 });}}
+        />
+      </View>
+      <View
+        style = {{
+          padding : 20
+        }}
+      >
+        <Button
+          title="Push Notification"
+          onPress={() => {CleverTap.recordEvent('React PushN Event');}}
+        />
+      </View>
+      <View
+      style = {{
+        padding : 20
+        }}
+      >
+        <Button
+          title="Web Inbox"
+          onPress={() => {CleverTap.showInbox({
+          'tabs': ['Offers', 'Promotions'],
+          'navBarTitle': 'My App Inbox',
+          'navBarTitleColor': '#FF0000',
+          'navBarColor': '#FFFFFF',
+          'inboxBackgroundColor': '#AED6F1',
+          'backButtonColor': '#00FF00',
+          'unselectedTabColor': '#0000FF',
+          'selectedTabColor': '#FF0000',
+          'selectedTabIndicatorColor': '#000000',
+          'noMessageText': 'No message(s)',
+          'noMessageTextColor': '#FF0000'
+          });}}
+        />
+      </View>
     </SafeAreaView>
   );
 }
@@ -129,7 +180,7 @@ const styles = StyleSheet.create({
   highlight: {
     fontWeight: '700',
   },
-  buttonContainer:{
+  a:{
   margin:20
   },
 });
